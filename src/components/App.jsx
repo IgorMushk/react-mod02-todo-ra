@@ -1,3 +1,14 @@
+// import React, { Component } from 'react'
+
+// export default class App extends Component {
+//   render() {
+//     return (
+//       <div>App</div>
+//     )
+//   } 
+// }
+
+
 export const App = () => {
   return (
     <div
@@ -10,7 +21,8 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      React homework template!
+      React homework template!!
     </div>
   );
 };
+
