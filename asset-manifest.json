@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-mod02-todo-ra/static/css/main.7acaea2f.css",
+    "main.js": "/react-mod02-todo-ra/static/js/main.06824e2c.js",
+    "index.html": "/react-mod02-todo-ra/index.html",
+    "main.7acaea2f.css.map": "/react-mod02-todo-ra/static/css/main.7acaea2f.css.map",
+    "main.06824e2c.js.map": "/react-mod02-todo-ra/static/js/main.06824e2c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.06824e2c.js"
+  ]
+}
