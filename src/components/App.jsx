@@ -18,6 +18,10 @@ export class App extends Component {
     const {todos} = this.state;
 
     const totalTodoCount = todos.length;
+
+    // const completedTodo = todos.filter(todo => todo.completed);
+    // const completedTodoCount = completedTodo.length;
+    
     const completedTodoCount = todos.reduce(
       (total, todo) => (todo.completed ? total + 1 : total),
       0,
@@ -45,22 +49,3 @@ export class App extends Component {
 //   { "id": "id-2", "text": "Разобраться с React Router", "completed": false },
 //   { "id": "id-3", "text": "Пережить Redux", "completed": false }
 // ]
-
-
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       React homework template!!
-//     </div>
-//   );
-// };
-
