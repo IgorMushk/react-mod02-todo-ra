@@ -41,10 +41,8 @@ export class App extends Component {
     const {todos} = this.state;
 
     const totalTodoCount = todos.length;
-
     // const completedTodo = todos.filter(todo => todo.completed);
-    // const completedTodoCount = completedTodo.length;
-    
+    // const completedTodoCount = completedTodo.length;  
     const completedTodoCount = todos.reduce(
       (total, todo) => (todo.completed ? total + 1 : total),
       0,
