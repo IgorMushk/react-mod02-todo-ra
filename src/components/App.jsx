@@ -1,13 +1,30 @@
-import React, { Component } from 'react'
-//import shortid from 'shortid';
+import React, { Component } from 'react';
+import shortid from 'shortid';
 import initialTodos from './todos.json';
 import TodoList from './TodoList';
 import Container from './Container/Container';
+import TodoEditor from './TodoEditor';
 
 export class App extends Component {
   state = {
-    todos : initialTodos,
+    todos: initialTodos,
   };
+
+  addTodo = text => {
+    const todo = {
+      id: shortid.generate(),
+      text,
+      completed: false,
+    };
+
+    // this.setState(prevState  => ({
+    //   todos: [todo, ...prevState.todos],
+    // }));
+    this.setState(({ todos }) => ({
+      todos: [todo, ...todos],
+    }));
+  };
+
 
   deleteTodo = todoId => {
     this.setState(prevState => ({
@@ -31,36 +48,41 @@ export class App extends Component {
 
     this.setState(({ todos }) => ({
       todos: todos.map(todo =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
+        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
       ),
     }));
   };
 
-
   render() {
-    const {todos} = this.state;
+    const { todos } = this.state;
 
     const totalTodoCount = todos.length;
     // const completedTodo = todos.filter(todo => todo.completed);
-    // const completedTodoCount = completedTodo.length;  
+    // const completedTodoCount = completedTodo.length;
     const completedTodoCount = todos.reduce(
       (total, todo) => (todo.completed ? total + 1 : total),
-      0,
+      0
     );
 
     return (
       <Container>
-       {/* TODO: вынести в отдельный компонент */}
-     
-      <div>
-        <p>Общее кол-во: {totalTodoCount}</p>
-        <p>Кол-во выполненных: {completedTodoCount}</p>
-      </div>
+        {/* TODO: вынести в отдельный компонент */}
 
-      <TodoList todos={todos} onDeleteTodo={this.deleteTodo} onToggleCompleted={this.toggleCompleted} />
-     </Container>
-    )
-  } 
+        <div>
+          <p>Общее кол-во: {totalTodoCount}</p>
+          <p>Кол-во выполненных: {completedTodoCount}</p>
+        </div>
+
+        <TodoEditor onSubmit={this.addTodo} />
+
+        <TodoList
+          todos={todos}
+          onDeleteTodo={this.deleteTodo}
+          onToggleCompleted={this.toggleCompleted}
+        />
+      </Container>
+    );
+  }
 }
 
 //export default App
