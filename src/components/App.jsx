@@ -4,10 +4,12 @@ import initialTodos from './todos.json';
 import TodoList from './TodoList';
 import Container from './Container/Container';
 import TodoEditor from './TodoEditor';
+import Filter from './Filter';
 
 export class App extends Component {
   state = {
     todos: initialTodos,
+    filter: '',
   };
 
   addTodo = text => {
@@ -53,16 +55,43 @@ export class App extends Component {
     }));
   };
 
-  render() {
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  getVisibleTodos = () => {
+    const { filter, todos } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return todos.filter(todo =>
+      todo.text.toLowerCase().includes(normalizedFilter),
+    );
+  };
+
+  calculateCompletedTodos = () => {
     const { todos } = this.state;
 
-    const totalTodoCount = todos.length;
-    // const completedTodo = todos.filter(todo => todo.completed);
-    // const completedTodoCount = completedTodo.length;
-    const completedTodoCount = todos.reduce(
+    return todos.reduce(
       (total, todo) => (todo.completed ? total + 1 : total),
-      0
+      0,
     );
+  };
+
+
+  render() {
+    //const { todos } = this.state;
+    const { todos, filter } = this.state;
+
+    const totalTodoCount = todos.length;
+    // // const completedTodo = todos.filter(todo => todo.completed);
+    // // const completedTodoCount = completedTodo.length;
+    // const completedTodoCount = todos.reduce(
+    //   (total, todo) => (todo.completed ? total + 1 : total),
+    //   0
+    // );
+    const completedTodoCount = this.calculateCompletedTodos();
+    const visibleTodos = this.getVisibleTodos();
+
 
     return (
       <Container>
@@ -75,8 +104,11 @@ export class App extends Component {
 
         <TodoEditor onSubmit={this.addTodo} />
 
+        <Filter value={filter} onChange={this.changeFilter} />
+
         <TodoList
-          todos={todos}
+          // todos={todos}
+          todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
         />
